@@ -1,4 +1,7 @@
 # main.py
 
-if True:
-    print('Hello World!')
+from executive import Executive
+
+exec = Executive()
+
+exec.run()
