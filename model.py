@@ -1,10 +1,10 @@
 # model.py
 
 class Model:
-    def __init__(self):
-        pass
+    def __init__(self, data_set):
+        self.data_set = data_set
     
-    def model_fit(data_set):
-        for line in data_set:
-            file = data_set.readline()
+    def create_model_outcomes(self):
+        for line in self.data_set:
+            file = self.data_set.readline()
         
