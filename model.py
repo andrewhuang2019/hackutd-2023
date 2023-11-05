@@ -49,7 +49,7 @@ class Model:
         leak_rate_column = leak_locations_data.LeakRate
 
         # chooses the specific features to compare data with 
-        features = ['NumberSourcesLeaking', 'Latitude', 'Longitude', 'Duration']
+        features = ['NumberSourcesLeaking', 'Latitude', 'Longitude', 'Duration'] 
         
         # creates a table with only the chosen data
         feature_data = combined_data[features]
