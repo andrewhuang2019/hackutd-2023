@@ -26,14 +26,10 @@ class Model:
         leak_locations_data = pd.read_csv(self.file_name)
 
         # shuffle entire dataset
-        leak_locations_data = leak_locations_data.sample(frac = 1)
+        # leak_locations_data = leak_locations_data.sample(frac = 1)
 
         # creates a table with only the chosen data
-        feature_data = leak_locations_data[features]
         leak_rate_column = leak_locations_data.LeakRate
-        
-        # split 20% of both rows into training data
-        train_X, test_X, train_y, test_y = train_test_split.split(feature_data, leak_rate_column, test_size = 0.2, random_state = 0)
 
         # chooses the specific features to compare data with 
         features = ['NumberSourcesLeaking', 'Latitude', 'Longitude', 'Duration']
@@ -41,33 +37,35 @@ class Model:
         # creates a table with only the chosen data
         feature_data = leak_locations_data[features]
         
+        # split 20% of both rows into training data
+        train_X, test_X, train_y, test_y = train_test_split(feature_data, leak_rate_column, test_size = 0.2, random_state = 0)
+        
         # creates a decision tree regressor and creates a prediction
         
         
         leak_locations_model = DecisionTreeRegressor(random_state = 0)
-        leak_locations_model.fit(train_X, leak_rate_column)
+        leak_locations_model.fit(train_X, train_y)
         
         predicted_leak_speed = leak_locations_model.predict(test_X)
         
-        print("MAE:", mean_absolute_error(leak_rate_column, predicted_leak_speed))
+        print("MAE:", mean_absolute_error(test_y, predicted_leak_speed))
         
         
         
         
-        max_nodes = [5, 50, 500, 5000]
-        for i in max_nodes:
-            
-            print(self.get_mae(i, train_X, feature_data, train_y, test_y))
+        for i in [5, 50, 500, 5000]:
+            mae = self.get_mae(i, train_X, test_X, train_y, test_y)
+            print(mae)
 
         
     def get_mae(self, max_leaf_nodes, train_X, val_X, train_y, val_y):
-        leak_locations_model = DecisionTreeRegressor(max_leaf_nodes, random_state=1)
+        leak_locations_model = DecisionTreeRegressor(max_leaf_nodes=max_leaf_nodes, random_state=0)
         leak_locations_model.fit(train_X, train_y)
         
         predicted_leak_speed = leak_locations_model.predict(val_X)
         
         mae = mean_absolute_error(val_y, predicted_leak_speed)
         
-        return mae
+        return(mae)
         
 
