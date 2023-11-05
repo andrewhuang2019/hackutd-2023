@@ -21,6 +21,8 @@ class Model:
         self.model_error_average = []
         self.saved_sensor_data = []
         self.saved_weather_data = []
+        self.csv_list = []
+        self.output_list = []
         
         
     # reads the input files and stores them in global variables
@@ -29,13 +31,14 @@ class Model:
         self.file_name1 = "leak_locations_and_rate.csv"
         self.file_name2 = "sensor_readings.csv"
         self.file_name3 = "weather_data.csv"
-        
+    
+    # reads the input of a csv file if the user wants to use their own data
     def read_input(self):
         csv_file = input("Please enter a CSV file: ")
         self.csv_input = csv_file
         
-    def write_output(self, data_frame):
-        pass
+    #def write_output(self, data_frame):
+        #pass
     
     # creates the model and returns the outcomes of the model with the input files
     def create_model_outcomes(self):
@@ -108,8 +111,8 @@ class Model:
         # just in case filling the empty values (if there are any somehow)
         featured_data = data_frame1[features]
         
+        # creating two choices for prediction of data, if you want to input own data set
         choice = input("Will you be using your own leak locations csv file? (y/n): ")
-        
         
         # goes through all of the sensors and averages the output when put through the model
         # takes the averages of those and subtracts the final error / 2 to create a minimum threshold
@@ -170,14 +173,21 @@ class Model:
         self.threshold = final_mean - (final_error / 2)
         print("Threshold For Leak: ", self.threshold)
         
-        choice2 = input("Will you be entering a sensor readings csv? (y/n): ")
+        '''choice2 = input("Will you be entering a sensor readings csv? (y/n): ")
         
         if choice2 == "y":
             self.read_file()
-            sensor_csv = pd.read_csv(self.csv_input)
+            for line in self.csv_input:
+                line = line.strip()
+                line = line.split(",")
+                self.csv_list.append(line)
+            
+            for row in range(1, len(self.csv_input)):
+                if statistics(self.csv_input[2]) > self.threshold:
+                    self.output_list.append(self.csv_input[2])
             
         else:
-            return
+            return'''
         
         
         
