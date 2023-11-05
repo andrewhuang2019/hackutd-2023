@@ -1,0 +1,15 @@
+body {
+    margin: 40px;
+    background-color: #DCDCDD;
+    color: #46494C;
+}
+
+table, th {
+  padding: 3px;
+  border: 1px solid black;
+}
+  
+/*span {
+    padding: 20px;
+    border: 5px solid #1985A1;
+} */
