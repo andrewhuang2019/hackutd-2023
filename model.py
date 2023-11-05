@@ -23,20 +23,22 @@ class Model:
         
         # saves the data from the files into a table
         leak_locations_data = pd.read_csv(self.file_name)
-        y = leak_locations_data.LeakRate
+        leak_rate_column = leak_locations_data.LeakRate
         
         # chooses the specific features to compare data with 
         features = ['NumberSourcesLeaking', 'Latitude', 'Longitude', 'Duration']
         
         # creates a table with only the chosen data
-        X = leak_locations_data[features]
+        feature_data = leak_locations_data[features]
         
         # creates a decision tree regressor and creates a prediction
         leak_locations_model = DecisionTreeRegressor(random_state=1)
-        leak_locations_model.fit(X, y)
-        print(leak_locations_model.predict(X.head()))
+        leak_locations_model.fit(feature_data, leak_rate_column)
+        print(leak_locations_model.predict(feature_data.head()))
         
-        predicted_leak_speed = leak_locations_model.predict(X.head())
+        predicted_leak_speed = leak_locations_model.predict(feature_data.head())
+        
+        mean_absolute_error(leak_rate_column, predicted_leak_speed)
         
         
 
