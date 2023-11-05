@@ -39,7 +39,7 @@ class Model:
         
         leak_locations_data = open(self.file_name1, "r")
         leak_list = []
-        
+            
         for line in leak_locations_data:
             line = line.strip()
             line = line.split(",")
@@ -66,11 +66,6 @@ class Model:
             for row_sensor in range(1, len(sensor_list)):
                 if leak_list[row_leak][11] == sensor_list[row_sensor][1]:
                     self.saved_sensor_data.append(sensor_list[row_sensor])
-                    
-        #for row_leak in range(1, len(leak_list)):
-            #for row_sensor in range(1, len(weather_list)):
-                #if leak_list[row_leak][6] == weather_list[row_sensor][0]:
-                    #self.saved_weather_data.append(weather_list[row_sensor])
                 
         print("saved_sensor_data", self.saved_sensor_data)
         #print("saved_weather_data", self.saved_weather_data)
@@ -118,38 +113,3 @@ class Model:
         #data_frame['4T-31']
         #data_frame['4T-31']
         #data_frame['4T-31']
-    
-        '''for line in range(1, len(sensor_readings_data)):
-            if int(sensor_readings_data[line][1]) == int(leak_locations_data[line][11]): #and int(sensor_readings_data[line][1]) > int(leak_locations_data[license][11]: 
-                self.consolidated_data.append(sensor_readings_data[line])
-                
-        print(self.consolidated_data)'''
-
-        # shuffle entire dataset
-        # leak_locations_data = leak_locations_data.sample(frac = 1)
-
-        # creates a table with only the chosen data
-        """ leak_rate_column = leak_locations_data.LeakRate
-
-        # chooses the specific features to compare data with 
-        features = ['NumberSourcesLeaking', 'Latitude', 'Longitude', 'Duration'] 
-        
-        # creates a table with only the chosen data
-        feature_data = combined_data[features]
-        
-        # split 20% of both rows into training data
-        train_X, test_X, train_y, test_y = train_test_split(feature_data, leak_rate_column, test_size = 0.2, random_state = 1)
-        
-        # creates a HistGradientBoostingRegressor to creates a prediction.
-        # accounts for the NaN data inside of the input file
-        
-        leak_locations_model = HistGradientBoostingRegressor(random_state=1)
-        leak_locations_model.fit(train_X, train_y)
-        
-        predicted_leak_speed = leak_locations_model.predict(test_X)
-        
-        mae = mean_absolute_error(test_y, predicted_leak_speed)
-        
-        print(mae)
-
- """
