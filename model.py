@@ -24,7 +24,6 @@ class Model:
         self.csv_list = []
         self.output_list = []
         
-        
     # reads the input files and stores them in global variables
     def gather_data(self):
 
@@ -36,9 +35,6 @@ class Model:
     def read_input(self):
         csv_file = input("Please enter a CSV file: ")
         self.csv_input = csv_file
-        
-    #def write_output(self, data_frame):
-        #pass
     
     # creates the model and returns the outcomes of the model with the input files
     def create_model_outcomes(self):
@@ -172,22 +168,4 @@ class Model:
         final_error = statistics.mean(self.model_error_average)
         self.threshold = final_mean - (final_error / 2)
         print("Threshold For Leak: ", self.threshold)
-        
-        '''choice2 = input("Will you be entering a sensor readings csv? (y/n): ")
-        
-        if choice2 == "y":
-            self.read_file()
-            for line in self.csv_input:
-                line = line.strip()
-                line = line.split(",")
-                self.csv_list.append(line)
-            
-            for row in range(1, len(self.csv_input)):
-                if statistics(self.csv_input[2]) > self.threshold:
-                    self.output_list.append(self.csv_input[2])
-            
-        else:
-            return'''
-        
-        
         
