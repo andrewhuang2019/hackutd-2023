@@ -32,7 +32,8 @@ class Model:
         feature_data = leak_locations_data[features]
         leak_rate_column = leak_locations_data.LeakRate
         
-        training_X, test_X, training_y, test_y = train_test_split.split(X,y, random_state = 0)
+        # split 20% of both rows into training data
+        train_X, test_X, train_y, test_y = train_test_split.split(feature_data, leak_rate_column, test_size = 0.2, random_state = 0)
 
         # chooses the specific features to compare data with 
         features = ['NumberSourcesLeaking', 'Latitude', 'Longitude', 'Duration']
@@ -43,6 +44,12 @@ class Model:
         # creates a decision tree regressor and creates a prediction
         
         
+        leak_locations_model = DecisionTreeRegressor(random_state = 0)
+        leak_locations_model.fit(train_X, leak_rate_column)
+        
+        predicted_leak_speed = leak_locations_model.predict(test_X)
+        
+        print("MAE:", mean_absolute_error(leak_rate_column, predicted_leak_speed))
         
         
         
@@ -50,7 +57,7 @@ class Model:
         max_nodes = [5, 50, 500, 5000]
         for i in max_nodes:
             
-            print(self.get_mae(i, training_X, feature_data, training_y, test_y))
+            print(self.get_mae(i, train_X, feature_data, train_y, test_y))
 
         
     def get_mae(self, max_leaf_nodes, train_X, val_X, train_y, val_y):
