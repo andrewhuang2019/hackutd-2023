@@ -49,7 +49,7 @@ class Model:
         leak_rate_column = leak_locations_data.LeakRate
 
         # chooses the specific features to compare data with 
-        features = ['NumberSourcesLeaking', 'Latitude', 'Longitude', 'Duration', 'Barometric_Pressure', 'Humidity', 'Temperature', 'Wind_Direction', 'Wind_Speed']
+        features = ['NumberSourcesLeaking', 'Latitude', 'Longitude', 'Duration']
         
         # creates a table with only the chosen data
         feature_data = combined_data[features]
@@ -57,15 +57,8 @@ class Model:
         # split 20% of both rows into training data
         train_X, test_X, train_y, test_y = train_test_split(feature_data, leak_rate_column, test_size = 0.2, random_state = 1)
         
-        # creates a decision tree regressor and creates a prediction
-        
-        
-        #leak_locations_model = DecisionTreeRegressor(random_state = 0)
-        #leak_locations_model.fit(train_X, train_y)
-        
-        #predicted_leak_speed = leak_locations_model.predict(test_X)
-        
-        #print("MAE:", mean_absolute_error(test_y, predicted_leak_speed))
+        # creates a HistGradientBoostingRegressor to creates a prediction.
+        # accounts for the NaN data inside of the input file
         
         leak_locations_model = HistGradientBoostingRegressor(random_state=1)
         leak_locations_model.fit(train_X, train_y)
