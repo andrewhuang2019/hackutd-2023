@@ -36,5 +36,7 @@ class Model:
         leak_locations_model.fit(X, y)
         print(leak_locations_model.predict(X.head()))
         
+        predicted_leak_speed = leak_locations_model.predict(X.head())
+        
         
 
