@@ -14,6 +14,7 @@ class Model:
         self.file_name1 = None
         self.file_name2 = None
         self.file_name3 = None
+        consolidated_data = []
         
     # reads the input files and stores them in global variables
     def read_file(self):
@@ -32,6 +33,10 @@ class Model:
         leak_locations_data = pd.read_csv(self.file_name1)
         sensor_readings_data = pd.read_csv(self.file_name2)
         weather_data = pd.read_csv(self.file_name3)
+        
+        for data_line in sensor_readings_data:
+            if (data_line[7] - data_line[6]) / 2 < sensor_readings_data[1] + 0.1 and (data_line[7] - data_line[6]) / 2 > sensor_readings_data[1] - 0.1:
+                self.consolidated_data.append(data_line)
         
         combined_data = pd.concat([leak_locations_data, sensor_readings_data, weather_data])
         
