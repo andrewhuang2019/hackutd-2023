@@ -8,6 +8,6 @@ class Executive:
         self.model = Model()
     
     def run(self):
-        self.model.read_file()
+        self.model.gather_data()
         self.model.create_model_outcomes()
         
