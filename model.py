@@ -41,13 +41,26 @@ class Model:
         feature_data = leak_locations_data[features]
         
         # creates a decision tree regressor and creates a prediction
-        leak_locations_model = DecisionTreeRegressor(random_state=1)
-        leak_locations_model.fit(feature_data, leak_rate_column)
-        print(leak_locations_model.predict(feature_data.head()))
         
-        predicted_leak_speed = leak_locations_model.predict(feature_data.head())
         
-        mean_absolute_error(leak_rate_column, predicted_leak_speed)
         
+        
+        
+        
+        max_nodes = [5, 50, 500, 5000]
+        for i in max_nodes:
+            
+            print(self.get_mae(i, training_X, feature_data, training_y, test_y))
+
+        
+    def get_mae(self, max_leaf_nodes, train_X, val_X, train_y, val_y):
+        leak_locations_model = DecisionTreeRegressor(max_leaf_nodes, random_state=1)
+        leak_locations_model.fit(train_X, train_y)
+        
+        predicted_leak_speed = leak_locations_model.predict(val_X)
+        
+        mae = mean_absolute_error(val_y, predicted_leak_speed)
+        
+        return mae
         
 
