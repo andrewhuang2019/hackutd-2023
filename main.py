@@ -2,6 +2,6 @@
 
 from executive import Executive
 
-exec = Executive()
+executive = Executive()
 
-exec.run()
+executive.run()
