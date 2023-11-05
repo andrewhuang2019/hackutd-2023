@@ -16,7 +16,7 @@ class Model:
         self.file_name2 = None
         self.file_name3 = None
         self.csv_input = None
-        self.threshold = 0
+        self.threshold = 0.0
         self.model_average = []
         self.model_error_average = []
         self.saved_sensor_data = []
@@ -37,9 +37,6 @@ class Model:
         csv_file = input("Please enter a CSV file: ")
         self.csv_input = csv_file
         
-    #def write_output(self, data_frame):
-        #pass
-    
     # creates the model and returns the outcomes of the model with the input files
     def create_model_outcomes(self):
         
@@ -173,21 +170,27 @@ class Model:
         self.threshold = final_mean - (final_error / 2)
         print("Threshold For Leak: ", self.threshold)
         
-        '''choice2 = input("Will you be entering a sensor readings csv? (y/n): ")
+        choice2 = input("Will you be entering a sensor readings csv? (y/n): ")
         
         if choice2 == "y":
-            self.read_file()
-            for line in self.csv_input:
+            
+            self.read_input()
+            csv = open(self.csv_input, "r")
+            for line in csv:
                 line = line.strip()
                 line = line.split(",")
                 self.csv_list.append(line)
             
-            for row in range(1, len(self.csv_input)):
-                if statistics(self.csv_input[2]) > self.threshold:
-                    self.output_list.append(self.csv_input[2])
+            for row in range(1, len(self.csv_list)):
+                for col in range(1, len(self.csv_list[row])):
+                    #print(self.csv_list[row][col])
+                    if self.csv_list[row][col] > self.threshold:   
+                        self.output_list.append(self.csv_list[row])
+                        break
+            print(self.output_list)
             
         else:
-            return'''
+            print("Thank you!")
         
         
         
