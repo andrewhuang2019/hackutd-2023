@@ -3,6 +3,7 @@
 import pandas as pd
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.metrics import mean_absolute_error
+from sklearn.model_selection import train_test_split
 
 
 class Model:
@@ -23,8 +24,16 @@ class Model:
         
         # saves the data from the files into a table
         leak_locations_data = pd.read_csv(self.file_name)
+
+        # shuffle entire dataset
+        leak_locations_data = leak_locations_data.sample(frac = 1)
+
+        # creates a table with only the chosen data
+        feature_data = leak_locations_data[features]
         leak_rate_column = leak_locations_data.LeakRate
         
+        training_X, test_X, training_y, test_y = train_test_split.split(X,y, random_state = 0)
+
         # chooses the specific features to compare data with 
         features = ['NumberSourcesLeaking', 'Latitude', 'Longitude', 'Duration']
         
