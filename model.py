@@ -184,9 +184,12 @@ class Model:
             for row in range(1, len(self.csv_list)):
                 for col in range(1, len(self.csv_list[row])):
                     #print(self.csv_list[row][col])
-                    if self.csv_list[row][col] > self.threshold:   
-                        self.output_list.append(self.csv_list[row])
+                    try:
+                        if self.csv_list[row][col] > self.threshold:   
+                            self.output_list.append(self.csv_list)
                         break
+                    except:
+                        pass
             print(self.output_list)
             
         else:
